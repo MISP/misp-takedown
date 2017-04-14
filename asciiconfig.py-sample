@@ -1,0 +1,15 @@
+urlabuse_path = "/home/urlabuse/"
+excludelist = ['http://virustotal.com/', 'http://microsoft.com/', 'http://vedicmotet.com/', '.onion.to/', '.tor2web.org/']
+rt_url = 'https://MYSERVER:443/rt/REST/1.0/'
+rt_user = 'USERNAME'
+rt_pass = 'PASSWORD'
+sphinx_server = '127.0.0.1'
+sphinx_port = 9312
+debug = False
+override_email = 'valid@test.mail'
+ua = "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.3; Trident/7.0; .NET4.0E; .NET4.0C)"
+min_size = 7000
+log_init = False
+# default log size, will be changed later
+logsize = 10
+
