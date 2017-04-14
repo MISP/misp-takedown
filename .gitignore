@@ -1,2 +1,4 @@
+*.tmpl
+keys.py
 *config.py
 *.pyc
