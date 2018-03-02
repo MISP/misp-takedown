@@ -4,9 +4,9 @@ A curses-style interface for generating automatic takedown notifications through
 
 ## Disclaimer
 
-This code is a surprisingly well working result of an experiment. However, there code needs improvements here and there.
+This code is a surprisingly well working result of an experiment. However, the code needs improvements here and there.
 Also, the installation process regarding urlabuse, uwhoisd, MISP and RT/RTIR is not the most straight forward.
-We'd be happy to find contributors for code improvement and installation documentation. Both could be part of an internship at CIRCL. Reach out if you are interested.
+We'd be happy to find contributors for code improvements and installation documentation. Both could be part of an internship at CIRCL. Reach out if you are interested.
 
 ## Requirements
 
@@ -18,16 +18,16 @@ misp-takedown requires a MISP instance (API access) and:
 
 ## Templates included
 
-A series of templates notification are included like:
+A series of notification templates are included, such as:
 
 - [Compromised website](./templates/compromised_website.tmpl-sample)
 - [Malicious files hosted](./templates/malicious_files_hosted.tmpl-sample)
 
-It can be easily extended to match your abuse notification processes or/and templates.
+It can be easily extended to match your abuse notification processes and/or templates.
 
 ## Demo
 
-How it looks like: [video screencast](https://www.youtube.com/watch?v=LsZA9YWDodQ)
+What it looks like: [video screencast](https://www.youtube.com/watch?v=LsZA9YWDodQ)
 
 ## License
 
