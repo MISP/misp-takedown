@@ -15,6 +15,8 @@ import collections
 from string import Template
 import urllib
 import urllib2
+import urllib3
+urllib3.disable_warnings()
 from rtkit.resource import RTResource
 from rtkit.authenticators import CookieAuthenticator
 from rtkit.errors import RTResourceError
@@ -183,7 +185,7 @@ def check_url_create_investigation(incident, template, url, override, onlinechec
         return "URL %s was already handled in ticket %s" % (url, open_tickets)
     if onlinecheck is True:
         online,size = is_online(url)
-    	if not online:
+        if not online:
             return "URL %s is offline (size: %s)" % (url, size) 
     with nostdout():
         emails, text, asn = urlabuse.run_lookup(url)
@@ -193,10 +195,10 @@ def check_url_create_investigation(incident, template, url, override, onlinechec
     try:
         f = open(template)
         subject = f.readline().rstrip()
-    	templatecontent = Template( f.read() )
-    	body = templatecontent.substitute(d)
+        templatecontent = Template(f.read())
+        body = templatecontent.substitute(d)
     except:
-	    print "Couldn't open template file (%s)" % template
+	    print("Couldn't open template file (%s)" % template)
 	    sys.exit(1)
     f.close()
     if event_tag == "tlp:green":
@@ -300,7 +302,6 @@ def search(m, event, out=None):
     if out is None:
         event_name = result['Event']["info"].replace('\r\n','')
         event_id   = result['Event']["id"]
-        event_tag  = result['Event']["Tag"][0]["name"]
         not_white = True
         for eventtag in result['Event']["Tag"]:
             event_tag = eventtag["name"]
@@ -309,17 +310,19 @@ def search(m, event, out=None):
                 event_tag = eventtag["name"]
                 break
         if not_white is True: 
-            print "Attention! This MISP event is not TLP:WHITE!"
-            print "Make sure you are allowed to handle this event."
+            print("Attention! This MISP event is not TLP:WHITE!")
+            print("Make sure you are allowed to handle this event.")
             input = raw_input("Continue? (y/N) ") or "n"
             if input == "y" or input == "Y":
-                print " Continuing..."
+                print(" Continuing...")
             else:
-                print " Aborting."
+                print(" Aborting.")
                 sys.exit(0)
         attribute = result['Event']["Attribute"]
         for e in attribute:
-            if e['type'] == "url":
+            if e['type'] == "url" or e['type'] == "ip-dst|port" or e['type'] == "ip-dst":
+                if e['type'] == "ip-dst|port":
+                    e['value'] = e['value'].split("|")[0]
                 isExcluded = False
                 for excl in excludelist:
                     if excl in e['value']:
